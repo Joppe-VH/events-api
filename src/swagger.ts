@@ -37,7 +37,7 @@ export const options: Options = {
         },
   ],
   baseDir: __dirname,
-  filesPattern: ["**/*.{ts,js}", "./swagger.ts"],
+  filesPattern: ["**/*.{ts,js}", "./swagger.ts", "./**/*.mjs"],
   swaggerUIPath: "/api-docs",
   exposeSwaggerUI: true,
 };
