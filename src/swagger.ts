@@ -29,7 +29,7 @@ export const options: Options = {
           description: "Development server",
         }
       : {
-          url: "https://aaaa.com/api",
+          url: "https://events-api-29qj.onrender.com/api",
           description: "Production server",
         },
   ],
