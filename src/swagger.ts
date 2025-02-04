@@ -1,43 +1,45 @@
-import { Options } from "express-jsdoc-swagger";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-console.log("__filename:", __filename);
-console.log("__dirname:", __dirname);
+import type { Options } from "swagger-jsdoc";
 
 /**
- * A Server Error
- * @typedef {object} ServerError
- * @property {string} message - the error message - json: {"example": "Something went wrong"}
+ * @swagger
+ * components:
+ *   schemas:
+ *     ServerError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Something went wrong"
+ *
+ *     ValidationError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Event validation failed: name: Path `name` is required."
  */
 
-/**
- * A Validation Error
- * @typedef {object} ValidationError
- * @property {string} message - the error message - json: {"example": "Event validation failed: name: Path `name` is required."}
- */
-
-export const options: Options = {
-  info: {
-    version: "1.0.0",
-    title: "Events-API",
-    description: "Simple event api, create edit and delete simple events.",
+const options: Options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      version: "1.0.0",
+      title: "Events-API",
+      description: "Simple event api, create edit and delete simple events.",
+    },
+    servers: [
+      process.env.NODE_ENV !== "production"
+        ? {
+            url: "http://localhost:3000/api",
+            description: "Development server",
+          }
+        : {
+            url: "https://events-api-29qj.onrender.com/api",
+            description: "Production server",
+          },
+    ],
   },
-  servers: [
-    process.env.NODE_ENV !== "production"
-      ? {
-          url: "http://localhost:3000/api",
-          description: "Development server",
-        }
-      : {
-          url: "https://events-api-29qj.onrender.com/api",
-          description: "Production server",
-        },
-  ],
-  baseDir: __dirname,
-  filesPattern: ["**/*.{ts,js}", "./swagger.ts", "./**/*.mjs"],
-  swaggerUIPath: "/api-docs",
-  exposeSwaggerUI: true,
+  apis: ["**/*.ts"],
 };
+
+export default options;

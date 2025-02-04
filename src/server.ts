@@ -5,8 +5,9 @@ import express from "express";
 import { notFound } from "./controllers/notFoundController";
 import eventRoutes from "./routes/eventRoutes";
 import mongoose from "mongoose";
-import expressJSDocSwagger from "express-jsdoc-swagger";
-import { options } from "./swagger";
+import swaggerUI from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerOptions from "./swagger";
 
 // Variables
 const app = express();
@@ -17,7 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 // documentation
-expressJSDocSwagger(app)(options);
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // Routes
 app.use("/api/events", eventRoutes);
