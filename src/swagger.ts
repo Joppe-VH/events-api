@@ -4,6 +4,9 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+console.log("__filename:", __filename);
+console.log("__dirname:", __dirname);
+
 /**
  * A Server Error
  * @typedef {object} ServerError
@@ -34,7 +37,7 @@ export const options: Options = {
         },
   ],
   baseDir: __dirname,
-  filesPattern: ["**/*.{ts,js}"],
+  filesPattern: ["**/*.{ts,js}", "./swagger.ts"],
   swaggerUIPath: "/api-docs",
   exposeSwaggerUI: true,
 };
